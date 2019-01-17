@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en-US">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="description" content="Pylancer | Python Job Board">
+      <meta name="keyword" content="Job, freelancer, employee, marketplace">
+      <meta name="author" content="Pylancer">
+      <!-- Title -->
+      <title>Pylancer</title>
+      <!-- Favicon -->
+      <link rel="icon" type="image/png" sizes="32x32" href="static/assets/img/favicon/pylancerfav.png">
+      <!--Bootstrap css-->
+      <link rel="stylesheet" href="static/assets/css/bootstrap.css">
+      <!--Font Awesome css-->
+      <link rel="stylesheet" href="static/assets/css/font-awesome.min.css">
+      <!--Magnific css-->
+      <link rel="stylesheet" href="static/assets/css/magnific-popup.css">
+      <!--Owl-Carousel css-->
+      <link rel="stylesheet" href="static/assets/css/owl.carousel.min.css">
+      <link rel="stylesheet" href="static/assets/css/owl.theme.default.min.css">
+      <!--Animate css-->
+      <link rel="stylesheet" href="static/assets/css/animate.min.css">
+      <!--Select2 css-->
+      <link rel="stylesheet" href="static/assets/css/select2.min.css">
+      <!--Slicknav css-->
+      <link rel="stylesheet" href="static/assets/css/slicknav.min.css">
+      <!--Bootstrap-Datepicker css-->
+      <link rel="stylesheet" href="static/assets/css/bootstrap-datepicker.min.css">
+      <!--Jquery UI css-->
+      <link rel="stylesheet" href="static/assets/css/jquery-ui.min.css">
+      <!--Perfect-Scrollbar css-->
+      <link rel="stylesheet" href="static/assets/css/perfect-scrollbar.min.css">
+      <!--Site Main Style css-->
+      <link rel="stylesheet" href="static/assets/css/style.css">
+      <!--Responsive css-->
+      <link rel="stylesheet" href="static/assets/css/responsive.css">
+   </head>
+   <body>
+       
+       
+      <!-- Header Area Start -->
+      <header class="jobguru-header-area stick-top forsticky page-header">
+         <div class="menu-animation">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-lg-2">
+                     <div class="site-logo">
+                        <a href="/">
+                        <img src="static/assets/img/pylancer.png" alt="" />
+                        </a>
+                     </div>
+                     <!-- Responsive Menu Start -->
+                     <div class="jobguru-responsive-menu"></div>
+                     <!-- Responsive Menu Start -->
+                  </div>
+                  <div class="col-lg-6">
+                     <div class="header-menu">
+                     </div>
+                  </div>
+                  <div class="col-lg-4">
+                     <div class="header-right-menu">
+                        <ul>
+                           <li><a href="#post-a-job-page" style="display: none;" class="post-jobs">Post jobs</a></li>
+                           <li><a href="#register.html" style="display: none;"><i class="fa fa-user"></i>sign up</a></li>
+                           <li><a href="#login.html" style="display: none;"><i class="fa fa-lock"></i>login</a></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </header>
+      <!-- Header Area End -->
+       
+       
+      <!-- Breadcromb Area Start -->
+      <section class="jobguru-breadcromb-area">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="breadcromb-box">
+                        <h3>Search For Freelancing Work</h3>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         <div class="breadcromb-bottom">
+         </div>
+      </section>
+      <!-- Breadcromb Area End -->
+       
+       
+      <!-- Top Job Area Start -->
+      <section class="jobguru-top-job-area browse-page">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="browse-job-head-option">
+                     <div class="job-browse-search">
+                        <form>
+                           <input type="search" placeholder="Search Jobs Here...">
+                           <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                     </div>
+                     <div class="job-browse-action">
+                        <div class="email-alerts">
+                           <input type="checkbox" class="styled" id="b_1">
+<label style="-webkit-user-select: none; -moz-user-select: none;    
+  -ms-user-select: none; user-select: none;" 
+  class="styled no-highlight" for="b_1">email alerts for this search</label>
+                        </div>
+                        <div class="dropdown">
+                           <button class="btn-dropdown dropdown-toggle" type="button" id="dropdowncur" data-toggle="dropdown" aria-haspopup="true">Sort By</button>
+                           <ul class="dropdown-menu" aria-labelledby="dropdowncur">
+                              <li>Newest</li>
+                              <li>Oldest</li>
+                              <li>Random</li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!--end col-->
+               <div class="">
+               </div>
+            </div>
+
+               {% for x in nums %}
+               <div class="col-md-12">
+                  <div class="sigle-top-job">
+                     <div class="top-job-company-image">
+                        <div class="company-logo-img">
+                           <a href="{{ url_for('job_page', job_id=data[x][0]) }}">
+                           <img src="{{ logofinder(data[x][9]) }}" alt="company image" />
+                           </a>
+                        </div>
+                        <h3><a href="{{ url_for('job_page', job_id=data[x][0]) }}">{{ data[x][1] }}</a></h3>
+                     </div>
+                     <div class="top-job-company-desc">
+                        <ul>
+                           <li>Experience <span class="company-state"><i class="fa fa-briefcase"></i>{{ data[x][2] }}</span></li>
+                           {% if data[x][7] == 'Twago' %}
+                           <li>Budget/Project Size <span class="open-icon"><i class="fa fa-credit-card-alt"></i>{{ data[x][3] }}</span></li>
+                           {% else %}
+                           <li>Price ({{ data[x][5] }})<span class="open-icon"><i class="fa fa-usd"></i>{{ currency_converter(data[x][3], data[x][4]) }}</span></li>
+                           {% endif %}
+                           <li>Posted <span class="varify"><i class="fa fa-calendar"></i>{{ data[x][6] }}</span></li>
+                        </ul>
+                        <div class="top-job-company-btn">
+                           <a href="{{ url_for('job_page', job_id=data[x][0]) }}" class="jobguru-btn-2">Bid now</a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            
+               {% endfor %}
+
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="pagination-box-row">
+
+                     <p>Page {% if request.path[-1].isdigit() %}{{ request.path[-1] }}{% else %} 1 {% endif %} of {{ number_of_pages }}</p>
+                     <ul class="pagination">
+                        
+
+                        {% for page in range(1, number_of_pages+1) %}
+                        {% if page == 1 and request.path[-1] == '/' %}
+                        <li class="active"><a href="/">1</a></li>
+                        {% elif page == 1 %}
+                        <li><a href="/">1</a></li>
+                        {% elif request.path[-1] == str(page) %}
+                        <li class="active"><a href="{{ url_for('pagination', page=page) }}">{{ page }}</a></li>
+                        {% else %}
+                        <li><a href="{{ url_for('pagination', page=page) }}">{{ page }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+
+                           {% if request.path[-1].isdigit() and int(request.path[-1]) < number_of_pages %}
+                           <li><a href="page%3D{{ str(int(request.path[-1]) + 1) }}"><i class="fa fa-angle-double-right"></i></a></li>
+                           {% elif request.path[-1] == '/' %}
+                           <li><a href="page%3D2"><i class="fa fa-angle-double-right"></i></a></li>
+                           {% endif %}
+                      </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Top Job Area End -->
+       
+       
+      <!-- Footer Area Start -->
+      <footer class="jobguru-footer-area">
+         <div class="footer-copyright">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12">
+                     <div class="copyright-left">
+                        <p>Copyright &copy; 2018 Pylancer. All Rights Reserved</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- Footer Area End -->
+      
+      <!-- infinite scroll -->
+      <script src="static/assets/js/infinite-scroll.pkgd.min.js"></script>
+      <!--Jquery js-->
+      <script src="static/assets/js/jquery-3.0.0.min.js"></script>
+      <!--Popper js-->
+      <script src="static/assets/js/popper.min.js"></script>
+      <!--Bootstrap js-->
+      <script src="static/assets/js/bootstrap.min.js"></script>
+      <!--Bootstrap Datepicker js-->
+      <script src="static/assets/js/bootstrap-datepicker.min.js"></script>
+      <!--Perfect Scrollbar js-->
+      <script src="static/assets/js/jquery-perfect-scrollbar.min.js"></script>
+      <!--Owl-Carousel js-->
+      <script src="static/assets/js/owl.carousel.min.js"></script>
+      <!--SlickNav js-->
+      <script src="static/assets/js/jquery.slicknav.min.js"></script>
+      <!--Magnific js-->
+      <script src="static/assets/js/jquery.magnific-popup.min.js"></script>
+      <!--Select2 js-->
+      <script src="static/assets/js/select2.min.js"></script>
+      <!--jquery-ui js-->
+      <script src="static/assets/js/jquery-ui.min.js"></script>
+      <!--Main js-->
+      <script src="static/assets/js/main.js"></script>
+
+
+   </body>
+</html>
+
