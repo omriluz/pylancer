@@ -4,9 +4,9 @@ from IPython import embed
 
 class Pylancersql:
 	def __init__(self):
-		self.create_table()
 		self.connection = sqlite3.connect('pylancer.db')
 		self.c = self.connection.cursor()
+		self.create_table()
 		
 
 	def create_table(self):
