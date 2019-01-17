@@ -4,6 +4,7 @@ from IPython import embed
 
 class Pylancersql:
 	def __init__(self):
+		self.create_table()
 		self.connection = sqlite3.connect('pylancer.db')
 		self.c = self.connection.cursor()
 		
@@ -21,7 +22,8 @@ class Pylancersql:
     		number_of_proposals TEXT,
     		description TEXT,
     		website TEXT,
-    		link TEXT
+    		link TEXT,
+    		unique_job_id TEXT
     		)""")
 		self.connection.commit()
 
@@ -30,14 +32,14 @@ class Pylancersql:
 	# SCRAPING METHODS
 
 
-	def add_row(self, title, exp_level, price, currency, payment_type, time_posted, number_of_proposals, description, website, link):
+	def add_row(self, title, exp_level, price, currency, payment_type, time_posted, number_of_proposals, description, website, link, unique_job_id):
 		self.connection
 		self.c.execute("""INSERT INTO pylancer VALUES (:id, :title,
 													 :exp_level, :price,
 													  :currency, :payment_type, :time_posted,
 													   :number_of_proposals,
 													    :description, :website,
-													     :link)""",
+													     :link, :unique_job_id)""",
 			{'id':None,'title':title,
 			 'exp_level':exp_level,
 			  'price':price, 'currency':currency,
@@ -45,7 +47,8 @@ class Pylancersql:
 			   'time_posted':time_posted,
 			    'number_of_proposals':number_of_proposals,
 			     'description':description,
-			      'website':website, 'link':link})
+			      'website':website, 'link':link,
+			       'unique_job_id':unique_job_id})
 		self.connection.commit()
 
 	# SITE METHODS
