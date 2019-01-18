@@ -56,11 +56,11 @@ class PphScraper:
 			sleep(5)
 			exp_level = soup.find('div', {'class': 'description-experience-level'}).get_text().replace('\n','').strip().replace('Experience Level: ', '')
 			print(exp_level)
-			sleep(10)
+			sleep(3)
 			price, currency, payment_type = self.price_parser(soup)
 			sleep(5)
 			print(price)
-			sleep(10)
+			sleep(3)
 			print(payment_type)
 			sleep(5)
 			print('the currency used is ' + currency)
@@ -80,10 +80,11 @@ class PphScraper:
 
 r = requests.get('https://www.peopleperhour.com/freelance-python-jobs')
 soup = BeautifulSoup(r.text, 'html.parser')
-pages_list = {x['data-page'] for x in soup.find('div',
-			 {'class':'pagination clearfix'}).find('ul').findAll('a')}
+pages_list = sorted(list({x['data-page'] for x in soup.find('div',
+			 {'class':'pagination clearfix'}).find('ul').findAll('a')}))
 
 for page in pages_list:
 	current_page = PphScraper(f'https://www.peopleperhour.com/freelance-python-jobs?page={page}')
 	current_page.get_data()
+
 
