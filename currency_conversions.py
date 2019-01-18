@@ -28,8 +28,8 @@ class Currency():
 			c = connection.cursor()
 			currency = currency.upper()
 			# if over a period of time update and then extract
-
-			if last_updated == datetime.strptime(c.execute('SELECT last_updated FROM currency_conversions').fetchone()[0], '%m/%d/%y %H:%M'):
+			last_updated = datetime.strptime(c.execute('SELECT last_updated FROM currency_conversions').fetchone()[0], '%m/%d/%y %H:%M')
+			if last_updated:
 				if (datetime.now() - last_updated).seconds > 3600:
 					# self.update_currency()
 					time = datetime.now()
