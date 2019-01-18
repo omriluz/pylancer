@@ -83,7 +83,8 @@ class TruelancerScraper():
 					sleep(3)
 					print(f'there are {proposals} proposals')
 					sleep(3)
-					self.sql.add_row(title, exp_level, price, currency, payment_type, time_posted, proposals, description, 'Truelancer', link)
+					unique_job_id = link.split('-')[-1]
+					self.sql.add_row(title, exp_level, price, currency, payment_type, time_posted, proposals, description, 'Truelancer', link, unique_job_id)
 
 r = requests.get('https://www.truelancer.com/freelance-python-jobs')
 soup = BeautifulSoup(r.text, 'html.parser')
