@@ -43,5 +43,3 @@ class Currency():
 				connection.commit()
 			c.execute(f"SELECT {currency}_USD FROM currency_conversions")
 			return c.fetchone()[0]
-
-
