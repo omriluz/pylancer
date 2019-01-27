@@ -28,7 +28,7 @@ class Currency():
 		try:
 			self.c.execute("""INSERT INTO currency_conversions VALUES (:id, :eur, :inr,
 														 :gbp, :last_updated)""",
-				{'id':1,'eur':348,'inr':4,'gbp':3,'last_updated':12/12/12})
+				{'id':1,'eur':348,'inr':4,'gbp':3,'last_updated':'12/12/12 12:20'})
 			self.connection.commit()
 		except sqlite3.IntegrityError:
 			pass
