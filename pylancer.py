@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 ''' 
 to make my code production ready by saturday i need to:
 handle scheduling for the scrapers either by sleep or a cron-job or any other method
