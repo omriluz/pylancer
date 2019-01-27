@@ -20,7 +20,7 @@ class Currency():
 			EUR_USD REAL,
     		GBP_USD REAL,
     		INR_USD REAL,
-    		last_updated TEXT 
+    		last_updated DATETIME 
     		)""")
 		self.connection.commit()
 
