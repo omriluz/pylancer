@@ -99,8 +99,8 @@
                <div class="col-md-12">
                   <div class="browse-job-head-option">
                      <div class="job-browse-search">
-                        <form>
-                           <input type="search" placeholder="Search Jobs Here...">
+                        <form method="POST" action="{{ url_for('search', search_term=search_term) }}">
+                           <input name='text' type="search" placeholder="Search Jobs Here...">
                            <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
                      </div>

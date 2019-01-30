@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 ''' 
 to make my code production ready by saturday i need to:
 handle scheduling for the scrapers either by sleep or a cron-job or any other method
@@ -40,12 +38,9 @@ from flask import (Flask, render_template, url_for,
 from flask_obscure import Obscure
 import sqlite3
 from pylancersql import Pylancersql
-from currency_conversion import Currency
+from currency_conversions import Currency
 import json
 
-
-connection = sqlite3.connect('pylancer.db')
-c = connection.cursor()
 
 sql = Pylancersql()
 converter = Currency()
@@ -94,17 +89,12 @@ number_of_pages = sql.number_of_pages()
 # 	return request.cookies.get('cookie')
 
 
-@app.route('/kakale')
-def kakale():
-	return render_template('kakale.html')
-
-
 @app.route("/")
 def index():
 	
 	data = sql.get_page_posts()
 	nums = range(len(data))
-	return render_template('htmlattempts.html', currency_converter=currency_converter,
+	return render_template('htmlattempts.html', search=search, currency_converter=currency_converter,
 												int=int, str=str,
 												job_page=job_page, data=data,
 												nums=nums, logofinder=logofinder,
@@ -117,7 +107,7 @@ def pagination(page=1):
 		return redirect(url_for('index'))
 	data = sql.sort_by_time(page)
 	nums = range(len(data))
-	return render_template('htmlattempts.html', currency_converter=currency_converter,
+	return render_template('htmlattempts.html', search=search, currency_converter=currency_converter,
 												int=int, str=str,
 												job_page=job_page, data=data,
 												nums=nums, logofinder=logofinder,
@@ -131,15 +121,15 @@ def job_page(job_id):
 
 
 @app.route('/search', methods=['GET', 'POST'])
-def search(search_term):
+def search():
+	search_term = request.form['text'] 
 	data = sql.search_site(search_term)
+	nums = range(len(data))
 	return render_template('htmlattempts.html', currency_converter=currency_converter,
 												int=int, str=str,
 												job_page=job_page, data=data,
 												nums=nums, logofinder=logofinder,
 												number_of_pages=number_of_pages)
-
-
 
 
 if __name__ == "__main__":

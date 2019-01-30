@@ -57,9 +57,12 @@ class Pylancersql:
 	# 	self.c.execute("SELECT * FROM pylancer WHERE title LIKE '%{}%' ORDER BY id LIMIT 10 OFFSET {}".format(search_term, (page-1)*10))
 	# 	return self.c.fetchall()
 
-	def search_site(self, search_term):
-		self.c.execute("SELECT * FROM pylancer WHERE title LIKE '%{}%' ORDER BY id LIMIT 10 OFFSET {}".format(search_term))
-		return self.c.fetchall()
+	def search_site(self, search_term, page=1):
+		with sqlite3.connect('pylancer.db') as connection:
+			c = connection.cursor()
+			c.execute("SELECT * FROM pylancer WHERE title LIKE '%{}%' ORDER BY id LIMIT 10 OFFSET {}".format(search_term, page))
+			return c.fetchall()
+
 
 	def get_page_posts(self, page=1):
 		with sqlite3.connect('pylancer.db') as connection:
