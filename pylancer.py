@@ -41,7 +41,7 @@ from flask import (Flask, render_template, url_for,
 from flask_obscure import Obscure
 import sqlite3
 from pylancersql import Pylancersql
-from currency_conversions import Currency
+from currency_conversion import Currency
 import json
 
 
