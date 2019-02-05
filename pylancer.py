@@ -63,7 +63,6 @@ def logofinder(site):
 
 
 def currency_converter(price, currency):
-	divider = None
 	if price == 'price not mentioned':
 		return 'price not mentioned'
 	if ',' in price:
@@ -75,6 +74,8 @@ def currency_converter(price, currency):
 	elif currency == '€':
 		divider = converter.get_currency('eur')
 	elif currency == '$':
+		divider = 1
+	else:
 		divider = 1
 	return int(int(price) / divider)
 
