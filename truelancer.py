@@ -15,6 +15,9 @@ class TruelancerScraper():
 
 
 	def link_parser(self):
+
+		""" parses the jobs links on the page  """
+
 		r = requests.get(self.page)
 		soup = BeautifulSoup(r.text, 'html.parser')
 		div_list = soup.findAll('div', {'class': 'clearfix job_title'})
@@ -23,6 +26,10 @@ class TruelancerScraper():
 
 
 	def is_active(self, page):
+
+		""" return True if a job listing is 
+			still active else returns false"""
+		
 		r = requests.get(page)
 		soup = BeautifulSoup(r.text, 'html.parser')
 		status = soup.find('div',
@@ -33,6 +40,12 @@ class TruelancerScraper():
 			return False
 
 	def time_parser(self, time):
+
+		"""parses the time and format it into 
+		a datetime format
+		 supported by the 
+		 database """
+		
 		if time.split()[1] == 'days' or time.split()[1] == 'day':
 			time_to_format = datetime.datetime.now() - datetime.timedelta(days=int(time.split()[0]))
 			return datetime.datetime.strftime(time_to_format, '%D')
@@ -46,6 +59,11 @@ class TruelancerScraper():
 			return datetime.datetime.strftime(time_to_format, '%D')
 
 	def get_data(self):
+
+		""" loops over the links given,
+			gets the html, parses the required data
+			and sends it to the database using the add_row() """
+
 		for link in self.links:
 			r = requests.get(link)
 			soup = BeautifulSoup(r.text, 'html.parser')

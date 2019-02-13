@@ -17,7 +17,7 @@ obscure = Obscure(app)
 
 def logofinder(site):
 
-	"returns the logo for the site given"
+	"""returns the logo for the site given"""
 	
 	if site == "People Per Hour":
 		return 'static/assets/img/peopleperhour-logo2.png'
@@ -31,7 +31,7 @@ def logofinder(site):
 
 def currency_converter(price, currency):
 
-	"converts every currency given to its price in usd"
+	"""converts every currency given to its price in usd"""
 
 	if price == 'price not mentioned':
 		return 'price not mentioned'
@@ -55,7 +55,7 @@ number_of_pages = sql.number_of_pages()
 @app.route("/")
 def index():
 	
-	"home page route"
+	"""home page route"""
 	
 	data = sql.get_page_posts()
 	nums = range(len(data))
@@ -69,7 +69,7 @@ def index():
 @app.route("/page=<int:page>")
 def pagination(page=1):
 
-	"handles pagination"
+	"""handles pagination"""
 	
 	if page == 1:
 		return redirect(url_for('index'))
@@ -95,8 +95,8 @@ def job_page(job_id):
 @app.route('/search', methods=['GET', 'POST'])
 def search():
 
-	"search function for the search bar on the site"
-	
+	"""search function for the search bar on the site"""
+
 	search_term = request.form['text'] 
 	data = sql.search_site(search_term)
 	nums = range(len(data))

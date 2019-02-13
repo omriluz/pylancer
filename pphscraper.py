@@ -15,8 +15,13 @@ class PphScraper:
 		self.sql = Pylancersql()
 		self.link_parser()
 
-	# parse prices to know if its fixed, hourly or just not mentioned
 	def price_parser(self, soup):
+
+		""" parses prices from a given soup 
+			object and returns the price,
+		 	currency and payment type in a form of a list """
+		
+
 		price = soup.find('div', {'class': 'value price-tag'}).find('span').get_text().replace('k', '00').replace('.','')
 
 		currency = soup.find('div', {'class': 'value price-tag'}).get_text()[0]
@@ -29,6 +34,12 @@ class PphScraper:
 
 
 	def time_parser(self, time):
+
+		"""parses the time and format it into 
+		a datetime format
+		 supported by the 
+		 database """
+
 		if time.split()[1] == 'days' or time.split()[1] == 'day':
 			time_to_format =  datetime.datetime.now() - datetime.timedelta(days=int(time.split()[0]))
 			return datetime.datetime.strftime(time_to_format, '%D')
@@ -41,6 +52,10 @@ class PphScraper:
 
 	# get the links from the page 
 	def link_parser(self):
+
+		""" parses the jobs links on the page  """
+
+
 		r = requests.get(self.page)
 		soup = BeautifulSoup(r.text, 'html.parser')
 		h6 = soup.findAll('h6')
@@ -48,6 +63,13 @@ class PphScraper:
 
 	# get the required data from the links and insert it into the database
 	def get_data(self):
+
+		""" loops over the links given,
+			gets the html, parses the required data
+			and sends it to the database using the add_row() """
+
+
+
 		for link in self.links:
 			request = requests.get(link)
 			soup = BeautifulSoup(request.text, 'html.parser')
