@@ -35,7 +35,7 @@ class PphScraper:
 
 	def time_parser(self, time):
 
-		"""parses the time and format it into 
+		"""parses the time and formats it into 
 		a datetime format
 		 supported by the 
 		 database """

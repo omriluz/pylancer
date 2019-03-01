@@ -7,7 +7,7 @@ import re
 from pylancersql import Pylancersql
 
 
-class TruelancerScraper():
+class TruelancerScraper:
 	def __init__(self, page):
 		self.page = page
 		self.link_parser()

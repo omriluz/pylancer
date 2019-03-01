@@ -77,7 +77,7 @@ class Pylancersql:
 
 		with sqlite3.connect('pylancer.db') as connection:
 			c = connection.cursor()
-			c.execute(("SELECT * FROM pylancer ORDER BY id LIMIT 10 OFFSET :offset"), {"offset": (page - 1) * 10})
+			c.execute(("SELECT * FROM pylancer ORDER BY id LIMIT 9 OFFSET :offset"), {"offset": (page - 1) * 9})
 			return c.fetchall()
 
 

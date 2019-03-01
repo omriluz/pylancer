@@ -26,7 +26,7 @@ def logofinder(site):
 	elif site == 'Truelancer':
 		return 'static/assets/img/favicon/truelancerlogo.png'
 	else:
-		return 'what am i gonna doooo'
+		return f"did not recognize the site {site}"
 
 
 def currency_converter(price, currency):
@@ -73,7 +73,7 @@ def pagination(page=1):
 	
 	if page == 1:
 		return redirect(url_for('index'))
-	data = sql.sort_by_time(page)
+	data = sql.get_page_posts(page)
 	nums = range(len(data))
 	return render_template('htmlattempts.html', search=search, currency_converter=currency_converter,
 												int=int, str=str,
@@ -92,12 +92,12 @@ def job_page(job_id):
 	return render_template("job-page.html", job_details=job_details, logofinder=logofinder, currency_converter=currency_converter)
 
 
-@app.route('/search', methods=['GET', 'POST'])
+@app.route('/search', methods=['GET'])
 def search():
 
 	"""search function for the search bar on the site"""
 
-	search_term = request.form['text'] 
+	search_term = request.args.get('text') 
 	data = sql.search_site(search_term)
 	nums = range(len(data))
 	return render_template('htmlattempts.html', currency_converter=currency_converter,

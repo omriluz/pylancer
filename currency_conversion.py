@@ -4,7 +4,7 @@ import sqlite3
 from datetime import datetime, timedelta
 from IPython import embed
 
-class Currency():
+class Currency:
 
 	def __init__(self):
 		self.update_currency()
