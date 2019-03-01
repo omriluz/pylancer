@@ -144,11 +144,11 @@
                      </div>
                      <div class="top-job-company-desc">
                         <ul>
-                           <li>Experience <span class="company-state"><i class="fa fa-briefcase"></i>{{ data[x][2] }}</span></li>
+                           <li>Experience <span class="company-state"><i class="fa fa-briefcase"></i>{{ experience_func(data[x][2]) }}</span></li>
                            {% if data[x][7] == 'Twago' %}
                            <li>Budget/Project Size <span class="open-icon"><i class="fa fa-credit-card-alt"></i>{{ data[x][3] }}</span></li>
                            {% else %}
-                           <li>Price ({{ data[x][5] }})<span class="open-icon"><i class="fa fa-usd"></i>{{ currency_converter(data[x][3], data[x][4]) }}</span></li>
+                           <li>Price ({{ shorten_job_type(data[x][5]) }})<span class="open-icon"><i class="fa fa-usd"></i>{{ currency_converter(data[x][3], data[x][4]) }}</span></li>
                            {% endif %}
                            <li>Posted <span class="varify"><i class="fa fa-calendar"></i>{{ data[x][6] }}</span></li>
                         </ul>

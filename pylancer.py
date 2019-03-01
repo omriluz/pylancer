@@ -15,6 +15,22 @@ app = Flask(__name__)
 app.config['OBSCURE_SALT'] = 4049
 obscure = Obscure(app)
 
+
+# delete this after
+def experience_func(x):
+	if x == "not mentioned":
+		return 'Undefined'
+	return x
+
+# delete this after you fix the database and scraper to scrape the right keyword
+def shorten_job_type(job_type):
+	if job_type == "Fixed Price":
+		return "Fixed"
+	elif job_type == "Per Hour":
+		return "Hourly"
+
+
+
 def logofinder(site):
 
 	"""returns the logo for the site given"""
@@ -34,7 +50,7 @@ def currency_converter(price, currency):
 	"""converts every currency given to its price in usd"""
 
 	if price == 'price not mentioned':
-		return 'price not mentioned'
+		return 'Undefined'
 	if ',' in price:
 		price = price.replace(',','') 
 	if currency == '₹':
@@ -59,7 +75,9 @@ def index():
 	
 	data = sql.get_page_posts()
 	nums = range(len(data))
-	return render_template('htmlattempts.html', search=search, currency_converter=currency_converter,
+	return render_template('htmlattempts.html', experience_func=experience_func,
+												shorten_job_type=shorten_job_type, 
+												search=search, currency_converter=currency_converter,
 												int=int, str=str,
 												job_page=job_page, data=data,
 												nums=nums, logofinder=logofinder,
@@ -75,7 +93,9 @@ def pagination(page=1):
 		return redirect(url_for('index'))
 	data = sql.get_page_posts(page)
 	nums = range(len(data))
-	return render_template('htmlattempts.html', search=search, currency_converter=currency_converter,
+	return render_template('htmlattempts.html', experience_func=experience_func,
+												shorten_job_type=shorten_job_type,
+												search=search, currency_converter=currency_converter,
 												int=int, str=str,
 												job_page=job_page, data=data,
 												nums=nums, logofinder=logofinder,
@@ -100,7 +120,9 @@ def search():
 	search_term = request.args.get('text') 
 	data = sql.search_site(search_term)
 	nums = range(len(data))
-	return render_template('htmlattempts.html', currency_converter=currency_converter,
+	return render_template('htmlattempts.html', experience_func=experience_func,
+												shorten_job_type=shorten_job_type,
+												currency_converter=currency_converter,
 												int=int, str=str,
 												job_page=job_page, data=data,
 												nums=nums, logofinder=logofinder,

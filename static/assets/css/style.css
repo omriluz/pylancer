@@ -1350,6 +1350,8 @@ header,
 
 .company-state i {
 	color: #16a8d8;
+	display: inline;
+	font-size: 12px;
 }
 
 .open-icon i {
