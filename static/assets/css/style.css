@@ -2041,6 +2041,7 @@ ul.footer-social li a>i {
 	margin-top: 12px
 }
 
+
 .top-job-company-image {
 	text-align: center;
 	padding: 10px 20px 0
@@ -5503,6 +5504,17 @@ ul.company-desc-list li i {
   font-size: 14px !important;
 }
 
+
+/*.job_title { elipses code for multiline
+	font-size: 14px !important;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}*/
+
+
 .clickable {
   position: relative;
 }
@@ -5524,3 +5536,4 @@ ul.company-desc-list li i {
 a.cta {
 	display:block;
 }
+

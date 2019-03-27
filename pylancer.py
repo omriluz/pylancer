@@ -75,7 +75,7 @@ def index():
 	
 	data = sql.get_page_posts()
 	nums = range(len(data))
-	return render_template('htmlattempts.html', experience_func=experience_func,
+	return render_template('index.html', experience_func=experience_func,
 												shorten_job_type=shorten_job_type, 
 												search=search, currency_converter=currency_converter,
 												int=int, str=str,
@@ -93,7 +93,7 @@ def pagination(page=1):
 		return redirect(url_for('index'))
 	data = sql.get_page_posts(page)
 	nums = range(len(data))
-	return render_template('htmlattempts.html', experience_func=experience_func,
+	return render_template('index.html', experience_func=experience_func,
 												shorten_job_type=shorten_job_type,
 												search=search, currency_converter=currency_converter,
 												int=int, str=str,
@@ -120,7 +120,7 @@ def search():
 	search_term = request.args.get('text') 
 	data = sql.search_site(search_term)
 	nums = range(len(data))
-	return render_template('htmlattempts.html', experience_func=experience_func,
+	return render_template('index.html', experience_func=experience_func,
 												shorten_job_type=shorten_job_type,
 												currency_converter=currency_converter,
 												int=int, str=str,

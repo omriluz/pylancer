@@ -12,7 +12,7 @@ class Currency:
 	def get_currency(self, currency):
 
 		"""gets the current rate for the currency compared to usd
-		   for the given currency caches it in a dictionary,
+		   for the given currency, caches it in a dictionary,
 		   if the function is used after an hour from the previous usage
 		   it calls the api again"""
 		

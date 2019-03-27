@@ -40,7 +40,16 @@ class Pylancersql:
 		""" adds a row to the database """
 
 		self.connection
-		self.c.execute("""INSERT INTO pylancer VALUES (:id, :title,
+
+		# gets every unique job id in a list
+		unique_job_ids = [x[0] for x in self.c.execute("SELECT unique_job_id FROM pylancer").fetchall()]
+
+		if unique_job_id in unique_job_ids:
+			pass
+			# make an if statement to see if post needs to be deleted or updated(should a post be updated?)
+
+		else:
+			self.c.execute("""INSERT INTO pylancer VALUES (:id, :title,
 													 :exp_level, :price,
 													  :currency, :payment_type, :time_posted,
 													   :number_of_proposals,
@@ -112,3 +121,5 @@ class Pylancersql:
 			c = connection.cursor()
 			c.execute("SELECT * FROM pylancer WHERE id=:id", {"id": job_id})
 			return c.fetchall()
+
+
