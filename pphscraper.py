@@ -100,13 +100,14 @@ class PphScraper:
 
 
 
-r = requests.get('https://www.peopleperhour.com/freelance-python-jobs')
-soup = BeautifulSoup(r.text, 'html.parser')
-pages_list = sorted(list({x['data-page'] for x in soup.find('div',
-			 {'class':'pagination clearfix'}).find('ul').findAll('a')}))
-
-for page in pages_list:
-	current_page = PphScraper(f'https://www.peopleperhour.com/freelance-python-jobs?page={page}')
-	current_page.get_data()
 
 
+if __name__ == "__main__":
+	r = requests.get('https://www.peopleperhour.com/freelance-python-jobs')
+	soup = BeautifulSoup(r.text, 'html.parser')
+	pages_list = sorted(list({x['data-page'] for x in soup.find('div',
+				 {'class':'pagination clearfix'}).find('ul').findAll('a')}))
+
+	for page in pages_list:
+		current_page = PphScraper(f'https://www.peopleperhour.com/freelance-python-jobs?page={page}')
+		current_page.get_data()

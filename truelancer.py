@@ -5,7 +5,7 @@ import datetime
 from time import sleep
 import re
 from pylancersql import Pylancersql
-
+from IPython import embed
 
 class TruelancerScraper:
 	def __init__(self, page):
@@ -67,7 +67,7 @@ class TruelancerScraper:
 		for link in self.links:
 			r = requests.get(link)
 			soup = BeautifulSoup(r.text, 'html.parser')
-			if soup.find('strong').get_text() != "Private Project!":
+			if soup.find('strong').get_text() != "Private Project!":					
 				if soup.find('span', {'class':'value text-success'}).get_text() != 'Awarded':
 					title = soup.find('h3', {'class': 'col-md-12'}).get_text().strip()
 					if soup.find('span',{'class':'currency'}).find('div')['class'][1].split('-')[1] == 'inr':
@@ -85,6 +85,7 @@ class TruelancerScraper:
 					exp_level = 'not mentioned'
 					time_posted = self.time_parser(' '.join(soup.find('ul',{'class':'metainfo col-md-12 list-actions tl_gap_top_10'}).find('li').get_text().split()[3:]))
 					proposals = soup.find('div',{'class':'text-center col-md-3 border-right border-left'}).find('span').get_text()
+					print(link)
 					print(title)
 					sleep(3)
 					print(currency)

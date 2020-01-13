@@ -7,6 +7,7 @@ import sqlite3
 from pylancersql import Pylancersql
 from currency_conversion import Currency
 import json
+import datetime
 
 
 sql = Pylancersql()
@@ -15,6 +16,8 @@ app = Flask(__name__)
 app.config['OBSCURE_SALT'] = 4049
 obscure = Obscure(app)
 
+# deletes posts from the db that were scraped with no time_posted
+sql.delete_posts_with_no_time()
 
 # delete this after
 def experience_func(x):
@@ -91,15 +94,18 @@ def pagination(page=1):
 	
 	if page == 1:
 		return redirect(url_for('index'))
+	elif page > 10:
+		page = 10
+
 	data = sql.get_page_posts(page)
 	nums = range(len(data))
 	return render_template('index.html', experience_func=experience_func,
-												shorten_job_type=shorten_job_type,
-												search=search, currency_converter=currency_converter,
-												int=int, str=str,
-												job_page=job_page, data=data,
-												nums=nums, logofinder=logofinder,
-												number_of_pages=number_of_pages)
+											shorten_job_type=shorten_job_type,
+											search=search, currency_converter=currency_converter,
+											int=int, str=str,
+											job_page=job_page, data=data,
+											nums=nums, logofinder=logofinder,
+											number_of_pages=number_of_pages)
 
 
 @app.route('/<tame:job_id>', methods=['GET'])

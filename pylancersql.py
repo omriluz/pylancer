@@ -41,14 +41,13 @@ class Pylancersql:
 
 		self.connection
 
-		# gets every unique job id in a list
-		unique_job_ids = [x[0] for x in self.c.execute("SELECT unique_job_id FROM pylancer").fetchall()]
-
-		if unique_job_id in unique_job_ids:
-			pass
-			# make an if statement to see if post needs to be deleted or updated(should a post be updated?)
+		# avoid inserting duplicate rows by validating unique description
+		description_in_db = [x[0] for x in self.c.execute("SELECT description FROM pylancer").fetchall()]
+		if description in description_in_db:
+			print("this description already exists and will not be inserted again into the database")
 
 		else:
+			print("inserting into the database")
 			self.c.execute("""INSERT INTO pylancer VALUES (:id, :title,
 													 :exp_level, :price,
 													  :currency, :payment_type, :time_posted,
@@ -86,13 +85,17 @@ class Pylancersql:
 
 		with sqlite3.connect('pylancer.db') as connection:
 			c = connection.cursor()
-			c.execute(("SELECT * FROM pylancer ORDER BY id LIMIT 9 OFFSET :offset"), {"offset": (page - 1) * 9})
+			c.execute(("SELECT * FROM pylancer ORDER BY time_posted LIMIT 9 OFFSET :offset"), {"offset": (page - 1) * 9})
 			return c.fetchall()
 
 
-	def delete_expired_posts(self):
-		pass
+	def delete_posts_with_no_time(self):
+		with sqlite3.connect('pylancer.db') as connection:
+			c = connection.cursor()
+			c.execute("DELETE from pylancer where time_posted IS NULL")
 
+	def delete_expired_posts():
+		pass
 
 	def sort_by_time(self, page=1):
 
@@ -109,8 +112,11 @@ class Pylancersql:
 		""" return the number of pages the site has rounded up with ceil """
 		with self.connection:
 			self.c.execute("SELECT COUNT() FROM pylancer")
-			return ceil(self.c.fetchone()[0] / 10)
-
+			number_of_pages = ceil(self.c.fetchone()[0] / 10)
+			if number_of_pages > 10:
+				number_of_pages = 10
+			return number_of_pages
+			# return ceil(self.c.fetchone()[0] / 10)
 
 	
 	def job_details(self, job_id): # instantiate the connection here as it has to be formed in the thread
