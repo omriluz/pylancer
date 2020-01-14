@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 from time import sleep
 from pylancersql import Pylancersql
 import re
-from IPython import embed
 
 # make a scraper object
 class PphScraper:
@@ -102,12 +101,11 @@ class PphScraper:
 
 
 
-if __name__ == "__main__":
-	r = requests.get('https://www.peopleperhour.com/freelance-python-jobs')
-	soup = BeautifulSoup(r.text, 'html.parser')
-	pages_list = sorted(list({x['data-page'] for x in soup.find('div',
-				 {'class':'pagination clearfix'}).find('ul').findAll('a')}))
+r = requests.get('https://www.peopleperhour.com/freelance-python-jobs')
+soup = BeautifulSoup(r.text, 'html.parser')
+pages_list = sorted(list({x['data-page'] for x in soup.find('div',
+			 {'class':'pagination clearfix'}).find('ul').findAll('a')}))
 
-	for page in pages_list:
-		current_page = PphScraper(f'https://www.peopleperhour.com/freelance-python-jobs?page={page}')
-		current_page.get_data()
+for page in pages_list:
+	current_page = PphScraper(f'https://www.peopleperhour.com/freelance-python-jobs?page={page}')
+	current_page.get_data()

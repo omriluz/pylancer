@@ -5,7 +5,6 @@ import datetime
 from time import sleep
 import re
 from pylancersql import Pylancersql
-from IPython import embed
 
 class TruelancerScraper:
 	def __init__(self, page):

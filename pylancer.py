@@ -8,6 +8,27 @@ from pylancersql import Pylancersql
 from currency_conversion import Currency
 import json
 import datetime
+import time
+import atexit
+from apscheduler.schedulers.background import BackgroundScheduler
+import requests
+from bs4 import BeautifulSoup
+from time import sleep
+import re
+
+
+# THIS FUNCTION and the lines after it schedual and run the scrapers, any new scraper put inside here
+def run_scrapers():
+	exec(open("pphscraper.py").read())
+	exec(open("truelancer.py").read())
+
+# background scheduler object 
+scheduler = BackgroundScheduler()
+
+# run schedulers in the background every 3 days 
+scheduler.add_job(func=run_pph_scraper, trigger="interval", seconds=259200)
+scheduler.start()
+
 
 
 sql = Pylancersql()
@@ -92,6 +113,7 @@ def pagination(page=1):
 
 	"""handles pagination"""
 	
+	# TEMP FIX until i get to deleting old expired posts
 	if page == 1:
 		return redirect(url_for('index'))
 	elif page > 10:
